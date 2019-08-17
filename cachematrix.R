@@ -41,5 +41,3 @@ cacheSolve <- function(x, ...) {
         x$setInvMatrix(invMatrix)
         return(invMatrix)
  }
-        
-}
