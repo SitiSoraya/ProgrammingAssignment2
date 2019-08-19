@@ -1,14 +1,13 @@
 ## SitiSoraya
 
-## This function creates matrix and returns the inverse matrix
+## This function creates matrix and returns the inverse matrix.
+
+## I personally think that setMatrix() function is not required because the object x contains the value of matrix that was passed as an argument
+## into makeCacheMatrix() function once it is instantiated.
+
 makeCacheMatrix <- function(x = matrix()) {
         
         invMatrix <- NULL
-        
-        setMatrix <- function(y){
-                x <<- y
-                invMatrix <<- NULL
-        }
         
         getMatrix <- function(){
                 x
@@ -22,22 +21,24 @@ makeCacheMatrix <- function(x = matrix()) {
                 invMatrix
         }
         
-        list(setMatrix = setMatrix, getMatrix = getMatrix, setInvMatrix = setInvMatrix, getInvMatrix = getInvMatrix)
+        ## Gives the name, for e.g. 'get' to the getMatrix() function defined above.
+        
+        list(get = getMatrix, setInv = setInvMatrix, getInv = getInvMatrix)
 }
 
 ## This function computes inverse of the matrix returned by makeCacheMatrix (i.e. the inverse of x)
 
 cacheSolve <- function(x, ...) {
         
-        invMatrix <- x$getInvMatrix()
+        invMatrix <- x$getInv()
         
         if(!is.null(invMatrix)){
                 message("Retrieving the inverse matrix from the cache")
                 return(invMatrix)
         }
         
-        myMatrix <- x$getMatrix()
-        invMatrix <- solve(myMatrix,...)
-        x$setInvMatrix(invMatrix)
+        getData <- x$get()
+        invMatrix <- solve(getData,...)
+        x$setInv(invMatrix)
         return(invMatrix)
  }
